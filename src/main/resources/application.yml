@@ -8,13 +8,13 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-#  datasource:
-#    url: jdbc:postgresql://localhost:5420/myreservations
-#    username: postgres
-#    password: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mybooking
+    username: postgres
+    password: postgres
 #
 #  jackson:
 #    serialization:
 #      WRITE_DATES_AS_TIMESTAMPS: false
-#server:
-#  port: 9002
+server:
+  port: 9885
