@@ -40,7 +40,7 @@ public class UserEntity {
             name = "user_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(
             name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Collection<RoleEntity> roles;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<ReservationEntity> reservations;

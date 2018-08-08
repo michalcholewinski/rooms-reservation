@@ -12,7 +12,7 @@ import java.util.Collection;
 @EqualsAndHashCode(exclude = {"users"})
 @ToString(exclude = {"users"})
 @Entity(name = "MYBOOKING_ROLE")
-public class Role {
+public class RoleEntity {
 
     @Id
     @GenericGenerator(
