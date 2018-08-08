@@ -12,9 +12,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/mybooking
     username: postgres
     password: postgres
-#
-#  jackson:
-#    serialization:
-#      WRITE_DATES_AS_TIMESTAMPS: false
+
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
 server:
   port: 9885
