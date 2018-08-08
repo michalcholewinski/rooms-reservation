@@ -1,6 +1,7 @@
 package com.mybooking.customers;
 
 import com.mybooking.MyBookingApplication;
+import com.mybooking.users.UsersRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class GetCustomersRestControllerIntegrationTest {
     protected MockMvc mvc;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UsersRepository usersRepository;
 
 
     //    @After
