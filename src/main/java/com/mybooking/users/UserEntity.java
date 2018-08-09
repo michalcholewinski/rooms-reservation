@@ -15,15 +15,16 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "MYBOOKING_USER")
+@Entity
+@Table(name = "MYBOOKING_USER")
 public class UserEntity {
     @Id
     @GenericGenerator(
-        name = "user_id_generator",
-        strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-        parameters = {
-            @org.hibernate.annotations.Parameter(name = "sequence_name", value = "MYBOOKING_USER_ID_SEQ")
-        }
+            name = "user_id_generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "MYBOOKING_USER_ID_SEQ")
+            }
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_generator")
     private Long id;
@@ -35,11 +36,11 @@ public class UserEntity {
 
     @ManyToMany
     @JoinTable(
-        name = "MYBOOKING_USERS_ROLES",
-        joinColumns = @JoinColumn(
-            name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(
-            name = "role_id", referencedColumnName = "id"))
+            name = "MYBOOKING_USERS_ROLES",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
     private Collection<RoleEntity> roles;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)

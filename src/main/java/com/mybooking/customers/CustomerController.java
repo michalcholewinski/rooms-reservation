@@ -1,26 +1,31 @@
 package com.mybooking.customers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
 
+    private final CustomerService customerService;
+
     @GetMapping
-    public List<Customer> getCustomers(){
-        return null;
+    public List<Customer> getCustomers() {
+        return customerService.getCustomers();
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer room){
-        return null;
+    public Customer createCustomer(@RequestBody Customer customer) {
+        return customerService.createCustomer(customer);
     }
 
-    @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable("id") Long id, @RequestBody Customer room){
-        return null;
-    }
+//Probably not needed
+//    @PutMapping("/{id}")
+//    public Customer updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer){
+//        return customerService.updateCustomer(id, customer);
+//    }
 
 }
