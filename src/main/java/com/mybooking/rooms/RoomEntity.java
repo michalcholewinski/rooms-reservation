@@ -23,6 +23,7 @@ public class RoomEntity {
     private Long id;
 
     private Integer number;
+    private Integer price;
     private String details;
     private String hotelName;
     private String city;

@@ -10,7 +10,8 @@ import java.util.List;
 public class RoomController {
 
     @GetMapping
-    public List<Room> getRooms(@RequestParam("period") int period,
+    public List<Room> getRooms(@RequestParam("priceMin") int priceMin,
+                               @RequestParam("priceMax") int priceMax,
                                @RequestParam("city") String city,
                                @RequestParam("startDate") LocalDateTime startDate,
                                @RequestParam("endDate") LocalDateTime endDate){
