@@ -11,9 +11,10 @@ import java.util.List;
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final RoomMapper roomMapper;
 
     public List<Room> getRooms(int priceMin, int priceMax, String city, LocalDate startDate, LocalDate endDate) {
         List<RoomEntity> rooms = roomRepository.findAllByRoomsByParameters(priceMin, priceMax, city, startDate, endDate);
-        return null;
+        return roomMapper.toRooms(rooms);
     }
 }

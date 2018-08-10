@@ -80,11 +80,16 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>test</scope>
-			<version>1.4.197</version>
+			<groupId>io.zonky.test</groupId>
+			<artifactId>embedded-database-spring-test</artifactId>
+			<version>1.3.0</version>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.h2database</groupId>-->
+			<!--<artifactId>h2</artifactId>-->
+			<!--<scope>test</scope>-->
+			<!--<version>1.4.197</version>-->
+		<!--</dependency>-->
 	</dependencies>
 
 	<build>
