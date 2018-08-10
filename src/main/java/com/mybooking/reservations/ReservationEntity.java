@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -26,10 +26,10 @@ public class ReservationEntity {
     private Long id;
 
     @NotNull
-    private LocalDateTime fromTime;
+    private LocalDate fromTime;
 
     @NotNull
-    private LocalDateTime toTime;
+    private LocalDate toTime;
 
     @ManyToOne
     private RoomEntity room;

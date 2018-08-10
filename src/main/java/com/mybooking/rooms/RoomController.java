@@ -3,6 +3,7 @@ package com.mybooking.rooms;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class RoomController {
     public List<Room> getRooms(@RequestParam("priceMin") int priceMin,
                                @RequestParam("priceMax") int priceMax,
                                @RequestParam("city") String city,
-                               @RequestParam("startDate") LocalDateTime startDate,
-                               @RequestParam("endDate") LocalDateTime endDate){
+                               @RequestParam("startDate") LocalDate startDate,
+                               @RequestParam("endDate") LocalDate endDate){
         return roomService.getRooms(priceMin, priceMax, city, startDate, endDate);
     }
 
