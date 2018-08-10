@@ -13,6 +13,6 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     public List<Room> getRooms(int priceMin, int priceMax, String city, LocalDateTime startDate, LocalDateTime endDate) {
-        return null;
+        return roomRepository.findAllByRoomsByParameters(priceMin, priceMax, city, startDate, endDate);
     }
 }
