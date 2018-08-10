@@ -1,13 +1,17 @@
 package com.mybooking.rooms;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/rooms")
 public class RoomController {
+
+    private final RoomService roomService;
 
     @GetMapping
     public List<Room> getRooms(@RequestParam("priceMin") int priceMin,
@@ -15,7 +19,7 @@ public class RoomController {
                                @RequestParam("city") String city,
                                @RequestParam("startDate") LocalDateTime startDate,
                                @RequestParam("endDate") LocalDateTime endDate){
-        return null;
+        return roomService.getRooms(priceMin, priceMax, city, startDate, endDate);
     }
 
     @PostMapping
