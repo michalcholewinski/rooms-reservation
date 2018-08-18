@@ -1,10 +1,7 @@
 package com.mybooking.users;
 
 import com.mybooking.reservations.ReservationEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,6 +9,8 @@ import java.util.Collection;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"reservations"})
+@ToString(exclude = {"reservations"})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

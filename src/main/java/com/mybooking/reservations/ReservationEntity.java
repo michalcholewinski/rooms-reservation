@@ -2,13 +2,19 @@ package com.mybooking.reservations;
 
 import com.mybooking.rooms.RoomEntity;
 import com.mybooking.users.UserEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "MYBOOKING_RESERVATION")

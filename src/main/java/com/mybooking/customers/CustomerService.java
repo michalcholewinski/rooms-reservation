@@ -5,6 +5,7 @@ import com.mybooking.users.UserEntity;
 import com.mybooking.users.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class CustomerService {
         return customerMapper.toCustomers(customers);
     }
 
+    @Transactional
     public Customer createCustomer(Customer customer) {
         if (userRepository.findOneByEmail(customer.getEmail()).isPresent()) {
             throw new CustomerAlreadyExistsException(customer.getEmail());
