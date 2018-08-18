@@ -34,7 +34,7 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "MYBOOKING_USERS_ROLES",
             joinColumns = @JoinColumn(
