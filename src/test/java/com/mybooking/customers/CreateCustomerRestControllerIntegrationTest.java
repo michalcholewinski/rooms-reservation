@@ -77,6 +77,7 @@ public class CreateCustomerRestControllerIntegrationTest {
 
     @Test
     @Sql(value="classpath:sql/createCustomerRestControllerIntegrationTest/loadDB.sql",  executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(value="classpath:sql/createCustomerRestControllerIntegrationTest/clearDB.sql",  executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     public void shouldNotCreateCustomerWithExistingEmail() throws Exception {
         mvc.perform(post(API_CUSTOMERS)
                 .contentType(MediaType.APPLICATION_JSON)
