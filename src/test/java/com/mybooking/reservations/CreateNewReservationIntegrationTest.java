@@ -17,10 +17,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CreateNewReservationIntegrationTest {
 
 
-    public static final String API_ROOMS = "/api/rooms";
+    public static final String API_RESERVATIONS = "/api/reservations";
 
 
     @Autowired
@@ -49,53 +49,62 @@ public class CreateNewReservationIntegrationTest {
     }
 
     @Test
-    public void shouldRequestFailDueToLackOfRequiredParameters() throws Exception {
-        mvc.perform(get(API_ROOMS)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void shouldFind3Rooms() throws Exception {
-        mvc.perform(get(getUrl(100, 1000, "Kielce", "2018-09-20", "2018-09-22"))
+    public void shouldCreateNewReservation() throws Exception {
+        mvc.perform(post(API_RESERVATIONS)
+                .content(new String("{\n" +
+                        "\t\"roomId\":\"113\", \n" +
+                        "\t\"userId\":\"101\",\n" +
+                        "\t\"startDate\": \"2018-12-04\",\n" +
+                        "\t\"endDate\": \"2018-12-07\"\n" +
+                        "}"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(3)));
+                .andExpect(jsonPath("fromTime", is("2018-12-04")))
+                .andExpect(jsonPath("toTime", is("2018-12-07")))
+                .andExpect(jsonPath("room.number", is(1)))
+                .andExpect(jsonPath("customer.email", is("karpinski@onet.eu")));
     }
 
     @Test
-    public void shouldReturnBadRequestBecauseOfWrongDateRange() throws Exception {
-        mvc.perform(get(getUrl(100, 1000, "Kielce", "2018-09-23", "2018-09-22"))
+    public void shouldResultWithBadRequestDueToWrongDateRange() throws Exception {
+        mvc.perform(post(API_RESERVATIONS)
+                .content(new String("{\n" +
+                        "\t\"roomId\":\"113\", \n" +
+                        "\t\"userId\":\"101\",\n" +
+                        "\t\"startDate\": \"2018-12-07\",\n" +
+                        "\t\"endDate\": \"2018-12-02\"\n" +
+                        "}"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("errorCode", is(2)));
     }
 
     @Test
-    public void shouldReturnBadRequestBecauseOfWrongDateRangeSameDate() throws Exception {
-        mvc.perform(get(getUrl(100, 1000, "Kielce", "2018-09-22", "2018-09-22"))
+    public void shouldResultWithBadRequestForNotExistingUser() throws Exception {
+        mvc.perform(post(API_RESERVATIONS)
+                .content(new String("{\n" +
+                        "\t\"roomId\":\"113\", \n" +
+                        "\t\"userId\":\"1011212\",\n" +
+                        "\t\"startDate\": \"2018-12-02\",\n" +
+                        "\t\"endDate\": \"2018-12-08\"\n" +
+                        "}"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("errorCode", is(2)));
+                .andExpect(jsonPath("errorCode", is(6)));
     }
 
     @Test
-    public void shouldReturnBadRequestBecauseOfWrongPriceRange() throws Exception {
-        mvc.perform(get(getUrl(1000, 100, "Kielce", "2018-09-20", "2018-09-22"))
+    public void shouldResultWithBadRequestForNotExistingRoom() throws Exception {
+        mvc.perform(post(API_RESERVATIONS)
+                .content(new String("{\n" +
+                        "\t\"roomId\":\"1131212\", \n" +
+                        "\t\"userId\":\"101\",\n" +
+                        "\t\"startDate\": \"2018-12-02\",\n" +
+                        "\t\"endDate\": \"2018-12-08\"\n" +
+                        "}"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content()
-                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("errorCode", is(3)));
+                .andExpect(jsonPath("errorCode", is(5)));
     }
 
-    private String getUrl(int priceMin, int priceMax, final String city, final String startDate, final String endDate) {
-        return API_ROOMS + "?priceMin=" + priceMin + "&priceMax=" + priceMax + "&city=" + city + "&startDate=" + startDate + "&endDate=" + endDate;
-    }
 }
