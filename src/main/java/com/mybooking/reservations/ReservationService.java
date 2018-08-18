@@ -97,4 +97,10 @@ public class ReservationService {
         }
         return reservationMapper.toReservations(reservations);
     }
+
+    public void deleteReservation(Long id) {
+        Optional<ReservationEntity> reservation = reservationRepository.findById(id);
+        ReservationEntity reservationEntity = reservation.orElseThrow(() -> new ReservationNotFoundException(id));
+        reservationRepository.delete(reservationEntity);
+    }
 }

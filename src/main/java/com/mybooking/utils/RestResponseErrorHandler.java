@@ -2,6 +2,7 @@ package com.mybooking.utils;
 
 import com.mybooking.customers.CustomerAlreadyExistsException;
 import com.mybooking.reservations.ReservationAlreadyExistsException;
+import com.mybooking.reservations.ReservationNotFoundException;
 import com.mybooking.reservations.RoomNotFoundException;
 import com.mybooking.rooms.IncorrectDateRangeException;
 import com.mybooking.rooms.IncorrectPriceRangeException;
@@ -26,6 +27,7 @@ public class RestResponseErrorHandler extends ResponseEntityExceptionHandler {
     public static final int RESERVATION_ALREADY_EXISTS_ERROR_CODE = 4;
     public static final int ROOM_NOT_FOUND_ERROR_CODE = 5;
     public static final int USER_NOT_FOUND_ERROR_CODE = 6;
+    public static final int RESERVATION_NOT_FOUND_ERROR_CODE = 7;
 
     @ExceptionHandler(CustomerAlreadyExistsException.class)
     protected ResponseEntity<Object> handleInvalidRequest(RuntimeException ex, WebRequest request) {
@@ -48,13 +50,18 @@ public class RestResponseErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(RoomNotFoundException.class)
-    protected ResponseEntity<Object> handleRoomNotFoundRequest(RuntimeException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleRoomNotFound(RuntimeException ex, WebRequest request) {
         return handleException(ex, request, BAD_REQUEST, ROOM_NOT_FOUND_ERROR_CODE);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    protected ResponseEntity<Object> handleUserNotFoundRequest(RuntimeException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleUserNotFound(RuntimeException ex, WebRequest request) {
         return handleException(ex, request, BAD_REQUEST, USER_NOT_FOUND_ERROR_CODE);
+    }
+
+    @ExceptionHandler(ReservationNotFoundException.class)
+    protected ResponseEntity<Object> handleReservationNotFound(RuntimeException ex, WebRequest request) {
+        return handleException(ex, request, BAD_REQUEST, RESERVATION_NOT_FOUND_ERROR_CODE);
     }
 
     private ResponseEntity<Object> handleException(RuntimeException ex, WebRequest request, HttpStatus status, int errorCode) {

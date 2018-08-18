@@ -22,4 +22,9 @@ public class ReservationController {
     public List<Reservation> getReservations(@RequestParam(value = "userId", required = false) Long userId){
         return reservationService.getReservations(userId);
     }
+
+    @DeleteMapping("/{id}")
+    public void cancelReservation(@PathVariable("id") Long id){
+        reservationService.deleteReservation(id);
+    }
 }
