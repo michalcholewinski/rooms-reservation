@@ -2,7 +2,7 @@
 
 ## Introduction  
 
-Backend for application that supports rooms reservation that supports following functionalites:  
+Backend Service (REST API) for application that supports rooms reservation that supports following functionalites:  
 * Register a customer. 
 * User searches for available hotel rooms. Search criteria include: a. period b. city c. daily price range.
 * User asks for room reservation for specific period. 
@@ -15,6 +15,8 @@ Technologies used in application:
 * Postgres Database
 * Maven
 * Docker 
+
+## Starting an application
 
 ## Database initialization
 Thanks to Flyway there is no need to initialize database manually. It's just about running mybooking service and database will be initialized with example rooms automatically.
