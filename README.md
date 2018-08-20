@@ -17,6 +17,9 @@ Technologies used in application:
 * Docker 
 
 ## Starting an application
+1. Run command `mvn clean install` from project directory (the same location where You can find file pom.xml)
+2. Run `docker-compose -f docker-compose-db.yml up --build` (--build is not necessary on first run).
+3. Application should start on port 9885 and can be accessed via Postman application (or SoapUI, or just CURL) on http://localhost:9003 
 
 ## Database initialization
 Thanks to Flyway there is no need to initialize database manually. It's just about running mybooking service and database will be initialized with example rooms automatically.

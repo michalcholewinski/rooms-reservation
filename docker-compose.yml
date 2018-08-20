@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 9003:9885
+      - 9885:9885
     depends_on:
       - "mybooking_db"
   mybooking_db:
