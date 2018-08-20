@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ValidationException;
+
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -28,6 +30,7 @@ public class RestResponseErrorHandler extends ResponseEntityExceptionHandler {
     public static final int ROOM_NOT_FOUND_ERROR_CODE = 5;
     public static final int USER_NOT_FOUND_ERROR_CODE = 6;
     public static final int RESERVATION_NOT_FOUND_ERROR_CODE = 7;
+    public static final int VALIDATION_ERROR_CODE = 8;
 
     @ExceptionHandler(CustomerAlreadyExistsException.class)
     protected ResponseEntity<Object> handleInvalidRequest(RuntimeException ex, WebRequest request) {
@@ -62,6 +65,11 @@ public class RestResponseErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ReservationNotFoundException.class)
     protected ResponseEntity<Object> handleReservationNotFound(RuntimeException ex, WebRequest request) {
         return handleException(ex, request, BAD_REQUEST, RESERVATION_NOT_FOUND_ERROR_CODE);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    protected ResponseEntity<Object> handleValidationException(RuntimeException ex, WebRequest request) {
+        return handleException(ex, request, BAD_REQUEST, VALIDATION_ERROR_CODE);
     }
 
     private ResponseEntity<Object> handleException(RuntimeException ex, WebRequest request, HttpStatus status, int errorCode) {
