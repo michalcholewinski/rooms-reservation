@@ -1,6 +1,6 @@
-#Application for Rooms Reservation
+# Application for Rooms Reservation
 
-##Introduction  
+## Introduction  
 
 Backend for application that supports rooms reservation that supports following functionalites:  
 * Register a customer. 
@@ -16,10 +16,10 @@ Technologies used in application:
 * Maven
 * Docker 
 
-##Database initialization
+## Database initialization
 Thanks to Flyway there is no need to initialize database manually. It's just about running mybooking service and database will be initialized with example rooms automatically.
 
-##Api Definition
+## Api Definition
 
 
 **Customers:**  
@@ -77,12 +77,12 @@ Cancel reservation:
 Having id of reservation we are able to cancel it by calling following endpoint with delet method:  
 DELETE `http://localhost:9885/api/reservations/{reservationId}`  
 
-##Restrictions
+## Restrictions
 This is only test application. There are still some things that should be improved.  
 * Test - as this is only simple PoC, integration test are written in a way that are using test migrations scripts as well as production migration scrips to populate database. To fix it these scripts should be separated to make test as much independent as possible.
 * Security - there is no security matters implemented. There are no check in code if proper user uses particular features.
 
-##Author
+## Author
 **Michał Cholewiński**, Software Engineer  
 [cholewinskimichal.com](http://cholewinskimichal.com)  
 [Eager To IT](http://eagertoit.com)
